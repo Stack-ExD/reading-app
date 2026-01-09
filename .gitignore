@@ -22,3 +22,5 @@
 
 node_modules
 /.next
+src/app/api/.env
+.env.local
