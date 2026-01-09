@@ -43,7 +43,9 @@ export async function POST(req: Request) {
     const content = response.choices[0].message.content || "{}";
 
     // Clean up content if it contains markdown code blocks
-    const cleanContent = content.replace(/```json\n?|```/g, "").trim();
+    const cleanContent = (content as string)
+      .replace(/```json\n?|```/g, "")
+      .trim();
 
     let parsedContent;
     try {
