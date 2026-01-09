@@ -24,24 +24,3 @@ her waggle shows the distance.
 This tiny insect has been making honey the same way for over 100 million years. Every spoonful of honey represents the life's work of about twelve
 bees.`,
 };
-
-export const mockQuestions = [
-  {
-    id: 1,
-    question: "What is the primary role of the queen bee?",
-    type: "text",
-    answer: "To lay eggs and keep the colony growing.",
-  },
-  {
-    id: 2,
-    question: "How do foraging bees tell others where to find food?",
-    type: "text",
-    answer: "They perform a 'waggle dance' indicating direction and distance.",
-  },
-  {
-    id: 3,
-    question: "Why are drones expelled from the hive in autumn?",
-    type: "text",
-    answer: "To conserve resources when food becomes scarce.",
-  },
-];
