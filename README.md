@@ -30,6 +30,7 @@ This is a React/Next.js application designed to test reading comprehension using
   1.  **Reading Phase:** User focuses solely on the text.
   2.  **Question Phase:** Questions are generated after the passage is read to prevent peeking.
   3.  **Result Phase:** Feedback and score are displayed.
+  4.  **Responsive Design:** Moves compenents horizontally/vertically depending on screen size.
 
 ---
 
