@@ -1,15 +1,17 @@
 "use client";
 import { useEffect, useState } from "react";
-import { passage } from "@/lib/data";
+import { passages } from "@/lib/passages";
 import ReadingPanel from "./ReadingPanel";
 import QuestionsPanel from "./QuestionsPanel";
+import { Question } from "@/interfaces/passagesInterface";
 
 export default function ReadingInterface() {
   const [currentStep, setCurrentStep] = useState(0); // 0 = Reading, 1: Questions, 2: Results
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [showResults, setShowResults] = useState(false);
 
-  const [questions, setQuestions] = useState<any[]>([]);
+  const [currentPassage, setCurrentPassage] = useState(passages[0]);
+  const [questions, setQuestions] = useState<Question[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
   const [evaluation, setEvaluation] = useState<{
     score: number;
@@ -24,7 +26,7 @@ export default function ReadingInterface() {
       try {
         const res = await fetch("/api/generate-questions", {
           method: "POST",
-          body: JSON.stringify({ passage: passage.content }),
+          body: JSON.stringify({ passage: currentPassage.content }),
         });
         const data = await res.json();
         setQuestions(data);
@@ -36,7 +38,7 @@ export default function ReadingInterface() {
     };
 
     fetchQuestions();
-  }, []);
+  }, [currentPassage]);
 
   const handleAnswerChange = (questionId: number, answer: string) => {
     setAnswers((prevAnswers) => ({
@@ -45,13 +47,27 @@ export default function ReadingInterface() {
     }));
   };
 
+  const handleTryAnotherPassage = () => {
+    const otherPassages = passages.filter((p) => p.id !== currentPassage.id);
+    const nextPassage =
+      otherPassages.length > 0
+        ? otherPassages[Math.floor(Math.random() * otherPassages.length)]
+        : currentPassage;
+    setCurrentPassage(nextPassage);
+    setCurrentStep(0);
+    setAnswers({});
+    setShowResults(false);
+    setEvaluation(null);
+    setQuestions([]);
+  };
+
   const calculateScore = async () => {
     setIsGenerating(true);
     try {
       const res = await fetch("/api/evaluate-answers", {
         method: "POST",
         body: JSON.stringify({
-          passage: passage.content,
+          passage: currentPassage.content,
           questions: questions,
           userAnswers: answers,
         }),
@@ -97,7 +113,7 @@ export default function ReadingInterface() {
         </div>
 
         <button
-          onClick={() => window.location.reload()}
+          onClick={handleTryAnotherPassage}
           className="w-full py-4 bg-primary text-primary-foreground rounded-xl font-bold text-lg hover:opacity-90 transition-all shadow-lg active:scale-[0.98]"
         >
           Try Another Passage
@@ -108,7 +124,7 @@ export default function ReadingInterface() {
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-      <ReadingPanel passage={passage} onFinish={handleFinishReading} />
+      <ReadingPanel passage={currentPassage} onFinish={handleFinishReading} />
 
       <div className="lg:sticky lg:top-12">
         {isGenerating && currentStep === 1 ? (

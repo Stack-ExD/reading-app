@@ -42,12 +42,3 @@ If given more time, the following improvements would be prioritized:
 2.  **Dynamic Difficulty:** Allow users to select a difficulty level (Easy, Medium, Hard) which dynamically adjusts the system prompt temperature and complexity insmtructions.
 3.  **Persistent Storage:** Save user sessions and scores to a database (e.g., PostgreSQL/Supabase) to track progress over time.
 4.  **Gamification:** Add progress bars, streaks and rewards to motivate users to continue learning without it feeling like a chore.
-
----
-
-## Time Spent
-
-- **Core Setup & UI:** 3 hours
-- **AI Integration:** 1 hours
-- **Refining Prompts & Error Handling:** 3 hours
-- **Documentation & Polish:** 1 hours

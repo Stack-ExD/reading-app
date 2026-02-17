@@ -38,7 +38,7 @@ export async function POST(req: Request) {
           content: passage,
         },
       ],
-      temperature: 0,
+      temperature: 0.7,
     });
 
     const content = response.choices[0].message.content || "{}";
@@ -55,16 +55,16 @@ export async function POST(req: Request) {
       console.error("Failed to parse JSON:", cleanContent);
       return NextResponse.json(
         { error: "Invalid JSON format" },
-        { status: 500 }
+        { status: 500 },
       );
     }
     return NextResponse.json(
-      parsedContent.questions || "Failed to generate questions"
+      parsedContent.questions || "Failed to generate questions",
     );
   } catch (error) {
     return NextResponse.json(
       { error: "Failed to generate questions" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

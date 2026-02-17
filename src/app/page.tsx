@@ -1,4 +1,4 @@
-import ReadingInterface from "@/components/ReadingInterface";
+import ReadingInterface from "@/components/UIPage";
 
 export default function Home() {
   return (

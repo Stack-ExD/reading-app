@@ -13,10 +13,10 @@ export async function POST(req: Request) {
       questions.map((q: { question: string; id: number }) => ({
         question: q.question,
         answer: userAnswers[q.id] || "No answer provided",
-      }))
+      })),
     )}
     
-    Evaluate the user's answers. If the answers are wrong explain why.
+    Evaluate the user's answers. If the answers are wrong explain why they are incorrect.
     
     Return ONLY a Raw JSON object with the following format:
     {
@@ -37,7 +37,7 @@ export async function POST(req: Request) {
           content: prompt,
         },
       ],
-      temperature: 0,
+      temperature: 0.7,
     });
 
     const content = response.choices[0].message.content || "{}";
@@ -54,7 +54,7 @@ export async function POST(req: Request) {
       console.error("Failed to parse JSON:", cleanContent);
       return NextResponse.json(
         { error: "Invalid JSON format" },
-        { status: 500 }
+        { status: 500 },
       );
     }
 

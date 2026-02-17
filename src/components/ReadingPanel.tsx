@@ -59,7 +59,7 @@ export default function ReadingPanel({ passage, onFinish }: ReadingPanelProps) {
           className="px-6 py-3 bg-primary text-primary-foreground rounded-xl font-bold hover:opacity-90 transition-all"
           onClick={handleNextParagraph}
         >
-          {currentParagraphIndex === paragraphs.length - 1 ? "Finish" : "Next"}
+          {currentParagraphIndex < paragraphs.length - 1 ? "Next" : "Finish"}
         </button>
       </div>
     </div>
